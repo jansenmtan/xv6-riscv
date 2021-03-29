@@ -3,6 +3,9 @@
 #include "kernel/fcntl.h"
 #include "user/user.h"
 
+// Return a integer between 0 and ((2^32 - 1) / 2), which is 2147483647.
+unsigned short lfsr = 0;
+
 char*
 strcpy(char *s, const char *t)
 {

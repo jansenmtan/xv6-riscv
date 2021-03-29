@@ -85,6 +85,8 @@ myproc(void) {
   return p;
 }
 
+// TODO: write setuid, setgid
+
 int
 allocpid() {
   int pid;
@@ -304,6 +306,8 @@ fork(void)
   safestrcpy(np->name, p->name, sizeof(p->name));
 
   pid = np->pid;
+
+  // TODO: ensure that child process inherits UID, GID from parent
 
   release(&np->lock);
 

@@ -1,6 +1,13 @@
 struct stat;
 struct rtcdate;
 
+// naive user struct
+// will not even think about process switching for now
+// struct user {
+// 	uint uid;
+// 	uint gid;
+// } u;
+
 // system calls
 int fork(void);
 int exit(int) __attribute__((noreturn));
