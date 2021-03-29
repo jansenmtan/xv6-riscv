@@ -5,6 +5,7 @@
 #include "spinlock.h"
 #include "proc.h"
 #include "defs.h"
+#include "fcntl.h"
 
 struct cpu cpus[NCPU];
 
@@ -84,6 +85,8 @@ myproc(void) {
   pop_off();
   return p;
 }
+
+// TODO: write setuid, setgid
 
 int
 allocpid() {
@@ -304,6 +307,9 @@ fork(void)
   safestrcpy(np->name, p->name, sizeof(p->name));
 
   pid = np->pid;
+
+  // TODO: ensure that child process inherits UID, GID from parent
+  // TODO: ensure that child process inherits mode     from parent
 
   release(&np->lock);
 

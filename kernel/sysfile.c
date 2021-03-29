@@ -52,6 +52,8 @@ fdalloc(struct file *f)
   return -1;
 }
 
+// TODO: create access kernel function(s)
+
 uint64
 sys_dup(void)
 {
@@ -145,6 +147,7 @@ sys_link(void)
   if((dp = nameiparent(new, name)) == 0)
     goto bad;
   ilock(dp);
+  // TODO: authorize access for `dp`
   if(dp->dev != ip->dev || dirlink(dp, name, ip->inum) < 0){
     iunlockput(dp);
     goto bad;
@@ -200,6 +203,8 @@ sys_unlink(void)
 
   ilock(dp);
 
+  // TODO: authorize access for `dp`
+
   // Cannot unlink "." or "..".
   if(namecmp(name, ".") == 0 || namecmp(name, "..") == 0)
     goto bad;
@@ -249,6 +254,8 @@ create(char *path, short type, short major, short minor)
 
   ilock(dp);
 
+  // TODO: authorize access for `dp`
+
   if((ip = dirlookup(dp, name, 0)) != 0){
     iunlockput(dp);
     ilock(ip);
@@ -265,6 +272,7 @@ create(char *path, short type, short major, short minor)
   ip->major = major;
   ip->minor = minor;
   ip->nlink = 1;
+  // TODO: implement default file creation ownership and mode
   iupdate(ip);
 
   if(type == T_DIR){  // Create . and .. entries.
@@ -304,7 +312,8 @@ sys_open(void)
       return -1;
     }
   } else {
-    if((ip = namei(path)) == 0){
+    ip = namei(path);
+    if(ip == 0){
       end_op();
       return -1;
     }
@@ -314,6 +323,7 @@ sys_open(void)
       end_op();
       return -1;
     }
+    // TODO: authorize access for file
   }
 
   if(ip->type == T_DEVICE && (ip->major < 0 || ip->major >= NDEV)){
@@ -405,6 +415,7 @@ sys_chdir(void)
     end_op();
     return -1;
   }
+  // TODO: authorize access for file
   iunlock(ip);
   iput(p->cwd);
   end_op();
@@ -422,6 +433,9 @@ sys_exec(void)
   if(argstr(0, path, MAXPATH) < 0 || argaddr(1, &uargv) < 0){
     return -1;
   }
+
+  // TODO: authorize access for file
+
   memset(argv, 0, sizeof(argv));
   for(i=0;; i++){
     if(i >= NELEM(argv)){
@@ -484,3 +498,7 @@ sys_pipe(void)
   }
   return 0;
 }
+
+// TODO: write a chmod system call
+
+// TODO: write a chown system call

@@ -47,7 +47,7 @@ printptr(int fd, uint64 x) {
     putc(fd, digits[x >> (sizeof(uint64) * 8 - 4)]);
 }
 
-// Print to the given fd. Only understands %d, %x, %p, %s.
+// Print to the given fd. Only understands %d, %x, %o, %p, %s.
 void
 vprintf(int fd, const char *fmt, va_list ap)
 {
@@ -70,6 +70,8 @@ vprintf(int fd, const char *fmt, va_list ap)
         printint(fd, va_arg(ap, uint64), 10, 0);
       } else if(c == 'x') {
         printint(fd, va_arg(ap, int), 16, 0);
+      } else if(c == 'o') {
+        printint(fd, va_arg(ap, int), 8, 0);
       } else if(c == 'p') {
         printptr(fd, va_arg(ap, uint64));
       } else if(c == 's'){

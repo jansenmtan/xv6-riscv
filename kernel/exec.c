@@ -6,6 +6,9 @@
 #include "proc.h"
 #include "defs.h"
 #include "elf.h"
+#include "sleeplock.h"
+#include "fs.h"
+#include "file.h"
 
 static int loadseg(pde_t *pgdir, uint64 addr, struct inode *ip, uint offset, uint sz);
 
@@ -57,6 +60,8 @@ exec(char *path, char **argv)
     if(loadseg(pagetable, ph.vaddr, ip, ph.off, ph.filesz) < 0)
       goto bad;
   }
+  // TODO: set program set-user-ID capability
+
   iunlockput(ip);
   end_op();
   ip = 0;
