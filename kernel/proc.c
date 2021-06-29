@@ -654,3 +654,5 @@ procdump(void)
     printf("\n");
   }
 }
+
+//add seed g_random_seed to be used for ASLR random function
