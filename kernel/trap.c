@@ -137,6 +137,7 @@ kerneltrap()
   uint64 sepc = r_sepc();
   uint64 sstatus = r_sstatus();
   uint64 scause = r_scause();
+  //increment g_random_seed added for ASLR by 1
   
   if((sstatus & SSTATUS_SPP) == 0)
     panic("kerneltrap: not from supervisor mode");
