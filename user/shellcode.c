@@ -8,5 +8,8 @@ main()
 
     argv[0] = "sh";
     argv[1] = 0;
+//     unsigned long argv[] =
+//         {0x00006873, 0x00000000};
+
     exec(argv[0], argv);
 }
