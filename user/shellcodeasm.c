@@ -5,19 +5,18 @@ void
 main()
 {
 __asm__(
-    "j 0x2c            \n"
-    "addi a0, ra, 0    \n"
-    "sd a0, 8(ra)      \n"
-    "sd zero, 16(ra)   \n"
-    "addi a1, ra, 8    \n"
+    "jal t0, 0x2a      \n"
+    "addi a0, ra, 100  \n"
+    "addi a0, a0, -100 \n"
+    "sd a0, 8(a0)      \n"
+    "addi a1, a0, -2   \n"
+    "addi a1, a1, 10   \n"
+    "xor a6, a6, a6    \n"
+    "sd a6, 16(a0)     \n"
     "li a7, 7          \n"
     "ecall             \n"
     "ret               \n"
-//     "li a0, 0          \n"
-//     "li a7, 2          \n"
-//     "ecall             \n"
-//     "ret               \n"
-    "call 0xa          \n"
+    "jal ra, 0xa       \n"
     ".string \"sh \"   \n"
 );
 }
