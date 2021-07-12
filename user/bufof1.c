@@ -20,4 +20,6 @@ main(int argc, char *argv[])
 
   strcpy(buf, argv[1]);
   printf(buf);
+  
+  return 0;
 }
