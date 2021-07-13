@@ -27,10 +27,12 @@ int main(int argc, char *argv[])
   x = 10;
   y = 20;
   ptr = (int *)malloc(4);
-  printf("main:      %p \n", main);
-  printf("stack: &x: %p \n", &x);
-  printf("stack: &y: %p \n", &y);
-  printf("heap: ptr: %p \n", ptr);
+  printf("main:        %p \n", main);
+  printf("exec:        %p \n", exec);
+  printf("stack: &x:   %p \n", &x);
+  printf("stack: &y:   %p \n", &y);
+  printf("heap: ptr:   %p \n", ptr);
   f1();
+  printf("exec - main: %p \n", main);
   exit(0);
 }
