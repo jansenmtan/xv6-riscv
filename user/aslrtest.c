@@ -31,6 +31,8 @@ int main(int argc, char *argv[])
   printf("exec:        %p \n", exec);
   printf("stack: &x:   %p \n", &x);
   printf("stack: &y:   %p \n", &y);
+  printf("&x - main:   %p \n", &x - (int *)main);
+  printf("&y - main:   %p \n", &y - (int *)main);
   printf("heap: ptr:   %p \n", ptr);
   f1();
   printf("exec - main: %p \n", main);
