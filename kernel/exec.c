@@ -7,7 +7,7 @@
 #include "defs.h"
 #include "elf.h"
 
-int aslr_flag = 1;
+int aslr_flag = 0;
 
 //add implementation for function get_random_min_max (min, max)
 unsigned int g_random_seed = 0;
@@ -124,14 +124,8 @@ exec(char *path, char **argv)
 
   //replace 2 with num_pages to increase stack size
   uvmclear(pagetable, sz-num_pages*PGSIZE);
-
-  //if aslr flag is on, create variable stack_offset and assign it value returned from get_random_min_max(0,16)
-  int stack_offset = get_random_min_max(0, 16);
-
-  //change stack pointer sp by substracting stack_offset*64 from sz
-  sp = sz - stack_offset*64;
-  //if aslr flag is on, substract num_pages * PGSIZE from sp and assign it to stackbase
-  stackbase = sp - num_pages*PGSIZE;
+  sp = sz;
+  stackbase = sp - PGSIZE;
 
   // Push argument strings, prepare rest of stack in ustack.
   for(argc = 0; argv[argc]; argc++) {
