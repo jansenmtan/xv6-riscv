@@ -133,6 +133,9 @@ UPROGS=\
 	$U/_wc\
 	$U/_zombie\
 	$U/_aslrtest\
+	$U/_shellcodeasm\
+	$U/_bufof1\
+	$U/_bufof2\
 
 fs.img: mkfs/mkfs README $(UPROGS)
 	mkfs/mkfs fs.img README $(UPROGS)
