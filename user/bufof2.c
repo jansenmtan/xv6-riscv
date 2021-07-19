@@ -2,29 +2,29 @@
 #include "user/user.h"
 
 void
-give_shell()
+vulnerable_function()
 {
-  printf("executing shell\n");
+  char buf[48];
+  int fd, n;
 
-  char *argv[2];
+  printf("buf: %p\n", buf);
 
-  argv[0] = "sh";
-  argv[1] = 0;
-  exec(argv[0], argv);
+  if((fd = open("README", 0)) < 0){
+    printf("failed to open README");
+    exit(1);
+  }
+
+  while((n = read(fd, buf, (80)*sizeof(char))) > 0);
+  if(n < 0){
+    printf("failed to read README");
+    exit(1);
+  }
+
+  printf("%s\n", buf);
 }
 
 void
 main(int argc, char *argv[])
 {
-  char buf[64];
-  int fd;
-
-  printf("buf: %p\n", buf);
-
-  if((fd = open("README", 0)) < 0)
-    exit(1);
-  while((read(fd, buf, sizeof(char)) == sizeof(char)));
-  printf("%s\n", buf);
-
-  exit(0);
+  vulnerable_function();
 }
