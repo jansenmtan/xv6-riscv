@@ -13,7 +13,7 @@ __asm__(
     "addi a1, a1, 10    \n"
     "xor a6, a6, a6     \n"
     "sd a6, 16(a0)      \n"
-    "jalr a6, a6, 0x35e \n"
+    "jalr a6, a6, 0x398 \n"
     "xor a6, a6, a6     \n"
     "jal ra, 0xa        \n"
     ".string \"sh \"    \n"

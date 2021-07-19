@@ -7,7 +7,9 @@ vulnerable_function()
   char buf[48];
   int fd, n;
 
-  printf("buf: %p\n", buf);
+  printf("buf:  %p\n", buf);
+  printf("exec: %p\n", exec);
+  printf("vulnerable_function: %p\n", vulnerable_function);
 
   if((fd = open("README", 0)) < 0){
     printf("failed to open README");

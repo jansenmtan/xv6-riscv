@@ -7,7 +7,7 @@
 #include "defs.h"
 #include "elf.h"
 
-int aslr_flag = 0;
+int aslr_flag = 1;
 
 //add implementation for function get_random_min_max (min, max)
 unsigned int g_random_seed = 0;
