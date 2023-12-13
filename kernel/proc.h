@@ -107,4 +107,8 @@ struct proc {
   char name[16];               // Process name (debugging)
 
   // TODO: create UID, GID fields
+  // New fields for UID and GID
+  uid_t uid;
+  gid_t gid;
+
 };

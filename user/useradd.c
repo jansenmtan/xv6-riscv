@@ -19,16 +19,47 @@ create_uid(void)
   return uid;
 }
 
-int
-main(int argc, char *argv[])
-{
-  // TODO: prompt for username
+int 
+main(int argc, char *argv[]) {
+  char username[MAXLEN];
+  char password[PASSWORD_LEN];
+  int fd;
 
-  // TODO: check if user already exists
+  // Prompt for username
+  printf("Enter username: ");
+  gets(username);
 
-  // TODO: prompt for password
+  // Check if user already exists
+  if (getpwnam(username) != NULL) {
+    printf("User already exists.\n");
+    exit(1);
+  }
 
-  // TODO: hash and salt password
+  // Prompt for password
+  printf("Enter password: ");
+  gets(password);
 
-  // TODO; create user account entry
+  // Hash and salt password
+  // TODO: Implement a hashing function
+
+  // Create user account entry
+  struct passwd new_user;
+  new_user.pw_name = username;
+  new_user.pw_passwd = password; // Store the hashed password
+  new_user.pw_uid = create_uid();
+  new_user.pw_gid = new_user.pw_uid; // For simplicity, UID and GID are the same
+  new_user.pw_dir = "/home"; // Default home directory
+  new_user.pw_shell = "/bin/sh"; // Default shell
+
+  // Write the new user to the password file
+  fd = open(PASSWD_PATH, O_WRONLY | O_APPEND);
+  if (fd < 0) {
+    printf("Failed to open password file.\n");
+    exit(1);
+  }
+  putpwent(&new_user, fd);
+  close(fd);
+
+  printf("User added successfully.\n");
+  exit(0);
 }
